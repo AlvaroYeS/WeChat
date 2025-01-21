@@ -19,11 +19,11 @@ public class Conexion {
 
 
     public static void connect() {
-        try(MongoClient client = MongoClients.create("mongodb://localhost:27017")) {
+        try(MongoClient client = MongoClients.create("mongodb://localhost:27017/")) {
             CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
             CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
-            MongoDatabase database = client.getDatabase("Whatsapp").withCodecRegistry(pojoCodecRegistry);
+            MongoDatabase database = client.getDatabase("WeChat").withCodecRegistry(pojoCodecRegistry);
             MongoCollection<Usuario> collection = database.getCollection("Usuarios", Usuario.class);
             MongoCollection<Mensaje> collection1 = database.getCollection("Mensajes", Mensaje.class);
 
