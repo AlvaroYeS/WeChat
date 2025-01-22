@@ -9,6 +9,9 @@ module org.example.wechat {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires org.mongodb.driver.sync.client;
+    requires org.mongodb.bson;
+    requires org.mongodb.driver.core;
 
     opens org.example.wechat to javafx.fxml;
     exports org.example.wechat;
