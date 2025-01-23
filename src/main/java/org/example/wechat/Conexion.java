@@ -47,6 +47,7 @@ public class Conexion {
 
 
             MongoCursor<Usuario> cursor = collection.find().iterator();
+            ListaUsuarios.clear();
             while (cursor.hasNext()) {
                 ListaUsuarios.add(cursor.next());
             }
@@ -57,6 +58,7 @@ public class Conexion {
 
 
             MongoCursor<Mensaje> cursorMensajes = collection1.find().iterator();
+            ListaMensajes.clear();
             while (cursorMensajes.hasNext()) {
                 ListaMensajes.add(cursorMensajes.next());
             }
