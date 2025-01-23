@@ -29,7 +29,6 @@ public class ContactosController implements Initializable {
                 Button boton = new Button(Conexion.ListaUsuarios.get(i).getNombre());
                 contactos.add(boton, 0, i);
             }
-
         }
     }
 }
