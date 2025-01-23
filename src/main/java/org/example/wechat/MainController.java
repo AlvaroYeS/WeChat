@@ -19,8 +19,9 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class MainController {
 
-
+    @FXML
     public TextField usuario;
+    @FXML
     public TextField contraseña;
     public Button logIn;
 
