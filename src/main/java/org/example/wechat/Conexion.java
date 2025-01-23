@@ -65,6 +65,7 @@ public class Conexion {
                 m.initialize();
             }
 
+            System.out.println(ListaUsuarios);
         }
     }
 

@@ -24,15 +24,17 @@ public class Usuario {
     private String ultimoAcceso;// Para almacenar la fecha y hora como un tipo de datos Instant (equivalente a Date en MongoDB)
 
     private LocalDateTime ultimoAccesoDate;
+    private String contraseña;
 
     // Constructor
     public Usuario() {}
 
-    public Usuario(String nombre, String email, String estado, String ultimoAcceso) {
+    public Usuario(String nombre, String email, String estado, String ultimoAcceso, String contraseña) {
         this.nombre = nombre;
         this.email = email;
         this.estado = estado;
         this.ultimoAcceso = ultimoAcceso;
+        this.contraseña = contraseña;
     }
 
     // Getters y Setters
@@ -84,14 +86,23 @@ public class Usuario {
         this.ultimoAcceso = ultimoAcceso;
     }
 
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", email='" + email + '\'' +
                 ", estado='" + estado + '\'' +
-                ", ultimoAcceso=" + getUltimoAcceso() +
+                ", ultimo_Acceso=" + getUltimoAcceso() +
+                ", contraseña='" + contraseña + '\'' +
                 '}';
     }
 
