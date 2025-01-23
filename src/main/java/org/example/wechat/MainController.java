@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -23,18 +24,31 @@ public class MainController {
     public TextField contraseña;
     public Button logIn;
 
+
     @FXML
     protected void onContactosButtonClick() {
-
         Conexion.connect();
-        for (Usuario u:  Conexion.ListaUsuarios) {
-            if (usuario.getText().equals(u.getNombre())){
-                if (contraseña.getText().equals(u.getContraseña()))
+        Usuario placeholder = new Usuario();
+        Boolean flag = false;
+        for (Usuario u : Conexion.ListaUsuarios) {
+            flag = usuario.getText().equals(u.getNombre()) && contraseña.getText().equals(u.getContraseña());
+            if (flag) {
+                placeholder = u;
+                break;
             }
-        }       Conexion.ListaMensajes;
-        //Conexion.ordenarMensajes();
+        }
+        if (flag){
+            Conectar(placeholder);
+        }else {
+            Error();
+        }
+    }
+
+
+    private void Conectar(Usuario usuario) {
         Parent parent = null;
         try {
+            ContactosController.usuario = usuario;
             parent = FXMLLoader.load(getClass().getResource("contactos.fxml"));
             Scene scene = new Scene(parent);
             Stage stage = new Stage();
@@ -45,4 +59,15 @@ public class MainController {
             throw new RuntimeException(e);
         }
     }
+
+    private void Error() {
+        Stage stage = new Stage();
+        Label error = new Label("Usuario o contraseña incorrecto");
+        StackPane pane = new StackPane();
+        pane.getChildren().add(error);
+        Scene xd = new Scene(pane);
+        stage.setScene(xd);
+        stage.show();
+    }
 }
+
