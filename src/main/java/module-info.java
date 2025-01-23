@@ -12,6 +12,7 @@ module org.example.wechat {
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.bson;
     requires org.mongodb.driver.core;
+    requires java.desktop;
 
     opens org.example.wechat to javafx.fxml;
     exports org.example.wechat;

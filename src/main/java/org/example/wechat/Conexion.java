@@ -5,11 +5,14 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.*;
+import javafx.geometry.HPos;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.eq;
@@ -44,17 +47,20 @@ public class Conexion {
 
 
             MongoCursor<Usuario> cursor = collection.find().iterator();
+            ListaUsuarios.clear();
             while (cursor.hasNext()) {
                 ListaUsuarios.add(cursor.next());
+
+
             }
 
             for (Usuario u : ListaUsuarios) {
                 u.convertDate();
             }
 
-            System.out.println(ListaUsuarios);
 
             MongoCursor<Mensaje> cursorMensajes = collection1.find().iterator();
+            ListaMensajes.clear();
             while (cursorMensajes.hasNext()) {
                 ListaMensajes.add(cursorMensajes.next());
             }
@@ -63,8 +69,14 @@ public class Conexion {
                 m.initialize();
             }
 
-            System.out.println(ListaMensajes);
-
         }
+    }
+
+    public static void ordenarMensajes() {
+        Collections.sort(ListaMensajes, new Comparator<Mensaje>(){
+            public int compare(Mensaje o1, Mensaje o2){
+                return o1.getFecha_envioDate().compareTo(o2.getFecha_envioDate());
+            }
+        });
     }
 }
