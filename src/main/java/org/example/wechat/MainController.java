@@ -18,7 +18,7 @@ public class MainController {
     private Label welcomeText;
 
     @FXML
-    protected void onHelloButtonClick() {
+    protected void onChatButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
 
         Conexion.connect();
@@ -26,6 +26,25 @@ public class MainController {
         Parent parent = null;
         try {
             parent = FXMLLoader.load(getClass().getResource("chat.fxml"));
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+            stage.setTitle("Welcome");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    protected void onContactosButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
+
+        Conexion.connect();
+        //Conexion.ordenarMensajes();
+        Parent parent = null;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("contactos.fxml"));
             Scene scene = new Scene(parent);
             Stage stage = new Stage();
             stage.setTitle("Welcome");
