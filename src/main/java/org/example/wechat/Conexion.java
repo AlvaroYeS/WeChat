@@ -50,6 +50,8 @@ public class Conexion {
             ListaUsuarios.clear();
             while (cursor.hasNext()) {
                 ListaUsuarios.add(cursor.next());
+
+
             }
 
             for (Usuario u : ListaUsuarios) {
