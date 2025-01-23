@@ -1,5 +1,9 @@
 package org.example.wechat;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerApi;
+import com.mongodb.ServerApiVersion;
 import com.mongodb.client.*;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -19,7 +23,18 @@ public class Conexion {
 
 
     public static void connect() {
-        try(MongoClient client = MongoClients.create("mongodb://localhost:27017/")) {
+
+        String connectionString = "mongodb+srv://user:1234@cluster.o8duc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster";
+        ServerApi serverApi = ServerApi.builder()
+                .version(ServerApiVersion.V1)
+                .build();
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString(connectionString))
+                .serverApi(serverApi)
+                .build();
+
+
+        try(MongoClient client = MongoClients.create(settings)) {
             CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
             CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
