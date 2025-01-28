@@ -18,6 +18,7 @@ import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.eq;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import static org.example.wechat.Conexionurl.connectionString;
 
 public class Conexion {
     public static ArrayList<Usuario> ListaUsuarios = new ArrayList<>();
@@ -27,7 +28,7 @@ public class Conexion {
 
     public static void connect() {
 
-        String connectionString = "mongodb+srv://user:1234@cluster.o8duc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster";
+
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -50,8 +51,6 @@ public class Conexion {
             ListaUsuarios.clear();
             while (cursor.hasNext()) {
                 ListaUsuarios.add(cursor.next());
-
-
             }
 
             for (Usuario u : ListaUsuarios) {
