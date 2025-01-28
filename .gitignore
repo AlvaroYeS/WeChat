@@ -12,7 +12,7 @@ target/
 *.iws
 *.iml
 *.ipr
-*.src/main/java/org/example/wechat/Conexionurl/
+*.src/main/java/org/example/wechat/Conexionurl.java
 
 ### Eclipse ###
 .apt_generated
