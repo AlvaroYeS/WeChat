@@ -13,8 +13,8 @@
             <Image url="@../../../images/logo.png" />
          </image>
       </ImageView>
-      <TextField fx:id="usuario" alignment="CENTER" layoutX="33.0" layoutY="84.0" promptText="Usuario" />
-      <TextField fx:id="contraseña" alignment="CENTER" layoutX="33.0" layoutY="128.0" promptText="Contraseña" />
-      <Button fx:id="logIn" layoutX="83.0" layoutY="189.0" onAction="#onContactosButtonClick" text="Log in" textFill="#272825" />
+      <TextField fx:id="usuario" alignment="CENTER" layoutX="33.0" layoutY="84.0" promptText="Usuario" text="Alvaro Yelamos" />
+      <TextField fx:id="contraseña" alignment="CENTER" layoutX="33.0" layoutY="128.0" promptText="Contraseña" text="1234" />
+      <Button fx:id="logIn" layoutX="83.0" layoutY="189.0" onAction="#onContactosButtonClick" text="Log in" />
    </children>
 </Pane>
