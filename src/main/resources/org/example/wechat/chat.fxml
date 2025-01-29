@@ -32,40 +32,32 @@
    </Pane>
    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="1.0" layoutY="73.0" prefHeight="452.0" prefWidth="453.0"
                vbarPolicy="NEVER">
-      <content>
-         <GridPane fx:id="chat" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="452.0"
-                   prefWidth="451.0" styleClass=".chat">
-            <columnConstraints>
-               <ColumnConstraints halignment="CENTER" minWidth="10.0" percentWidth="100.0" prefWidth="10.0"/>
-            </columnConstraints>
-         </GridPane>
-      </content>
+      <GridPane fx:id="chat" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="452.0"
+                prefWidth="451.0" styleClass=".chat">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" minWidth="10.0" percentWidth="100.0" prefWidth="10.0"/>
+         </columnConstraints>
+      </GridPane>
    </ScrollPane>
    <Pane layoutX="1.0" layoutY="525.0" prefHeight="60.0" prefWidth="451.0">
-      <children>
-         <TextField fx:id="mensaje" layoutX="79.0" layoutY="15.0" prefHeight="30.0" prefWidth="307.0"
-                    promptText="Mensaje"
-                    style="-fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20;"/>
-         <Button mnemonicParsing="false" onAction="#openEmojiKeyboard" opacity="0.98" prefHeight="51.0" prefWidth="58.0"
-                 style="-fx-background-color: transparent;">
-            <graphic>
-               <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../../images/emoji.png"/>
-                  </image>
-               </ImageView>
-            </graphic>
-         </Button>
-         <Button layoutX="386.0" layoutY="8.0" mnemonicParsing="false" onAction="#onSendClick"
-                 style="-fx-background-color: transparent;">
-            <graphic>
-               <ImageView fitHeight="36.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../../images/send.png"/>
-                  </image>
-               </ImageView>
-            </graphic>
-         </Button>
-      </children>
+      <TextField fx:id="mensaje" layoutX="79.0" layoutY="15.0" prefHeight="30.0" prefWidth="307.0"
+                 promptText="Mensaje"
+                 style="-fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20;"/>
+      <Button mnemonicParsing="false" onAction="#openEmojiKeyboard" opacity="0.98" prefHeight="51.0" prefWidth="58.0"
+              style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../images/emoji.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="386.0" layoutY="8.0" mnemonicParsing="false" onAction="#onSendClick"
+              style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../images/send.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
    </Pane>
 </AnchorPane>
