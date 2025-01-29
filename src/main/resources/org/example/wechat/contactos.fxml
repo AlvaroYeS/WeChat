@@ -11,34 +11,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="577.0" prefWidth="451.0" stylesheets="@../../../css/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.wechat.ContactosController">
-   <children>
-      <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="79.0" prefHeight="500.0" prefWidth="461.0" vbarPolicy="NEVER">
-         <content>
-            <GridPane fx:id="contactos" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="501.0" prefWidth="460.0" styleClass=".contactos">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" minWidth="10.0" percentWidth="100.0" prefWidth="10.0" />
-               </columnConstraints>
-            </GridPane>
-         </content>
-      </ScrollPane>
-      <Pane layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="451.0">
-         <children>
-            <Button fx:id="volver" onAction="#volver" layoutY="-3.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="55.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="64.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/volver.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Text layoutX="182.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contactos" textAlignment="RIGHT" wrappingWidth="254.13671875">
-               <font>
-                  <Font name="Lucida Sans Unicode" size="18.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
-   </children>
+<AnchorPane prefHeight="577.0" prefWidth="451.0" stylesheets="@../../../css/styles.css"
+            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.wechat.ContactosController">
+   <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="79.0" prefHeight="500.0" prefWidth="461.0" vbarPolicy="NEVER">
+      <GridPane fx:id="contactos" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                prefHeight="501.0" prefWidth="460.0" styleClass=".contactos">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" minWidth="10.0" percentWidth="100.0" prefWidth="10.0"/>
+         </columnConstraints>
+      </GridPane>
+   </ScrollPane>
+   <Pane layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="451.0">
+      <Button fx:id="volver" onAction="#volver" layoutY="-3.0" mnemonicParsing="false" prefHeight="44.0"
+              prefWidth="55.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="64.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../images/volver.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Text layoutX="182.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contactos"
+            textAlignment="RIGHT" wrappingWidth="254.13671875">
+         <font>
+            <Font name="Lucida Sans Unicode" size="18.0"/>
+         </font>
+      </Text>
+   </Pane>
 </AnchorPane>

@@ -9,13 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.IOException;
-
-import static com.mongodb.client.model.Filters.eq;
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class MainController {
 
@@ -30,7 +24,7 @@ public class MainController {
     protected void onContactosButtonClick() {
         Conexion.connect();
         Usuario placeholder = new Usuario();
-        Boolean flag = false;
+        boolean flag = false;
         for (Usuario u : Conexion.ListaUsuarios) {
             flag = usuario.getText().equals(u.getNombre()) && contraseña.getText().equals(u.getContraseña());
             if (flag) {
