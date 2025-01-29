@@ -24,28 +24,25 @@ public class Conexion {
     public static ArrayList<Usuario> ListaUsuarios = new ArrayList<>();
     public static ArrayList<Mensaje> ListaMensajes = new ArrayList<>();
 
-
+    private static MongoDatabase database;
+    private static MongoCollection<Usuario> collection;
+    private static MongoCollection<Mensaje> collection1;
+    private static ServerApi serverApi = ServerApi.builder()
+            .version(ServerApiVersion.V1)
+            .build();
+    private static MongoClientSettings settings = MongoClientSettings.builder()
+            .applyConnectionString(new ConnectionString(connectionString))
+            .serverApi(serverApi)
+            .build();
+    private static MongoClient client = MongoClients.create(settings);
 
     public static void connect() {
-
-
-        ServerApi serverApi = ServerApi.builder()
-                .version(ServerApiVersion.V1)
-                .build();
-        MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString(connectionString))
-                .serverApi(serverApi)
-                .build();
-
-
-        try(MongoClient client = MongoClients.create(settings)) {
             CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
             CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
-            MongoDatabase database = client.getDatabase("WeChat").withCodecRegistry(pojoCodecRegistry);
-            MongoCollection<Usuario> collection = database.getCollection("Usuarios", Usuario.class);
-            MongoCollection<Mensaje> collection1 = database.getCollection("Mensajes", Mensaje.class);
-
+            database = client.getDatabase("WeChat").withCodecRegistry(pojoCodecRegistry);
+            collection = database.getCollection("Usuarios", Usuario.class);
+            collection1 = database.getCollection("Mensajes", Mensaje.class);
 
             MongoCursor<Usuario> cursor = collection.find().iterator();
             ListaUsuarios.clear();
@@ -65,12 +62,10 @@ public class Conexion {
             }
 
             for (Mensaje m : ListaMensajes) {
-                m.initialize();
+                m.getReceptor();
             }
 
             System.out.println(ListaUsuarios);
-
-        }
     }
 
     public static void ordenarMensajes() {
@@ -79,5 +74,9 @@ public class Conexion {
                 return o1.getFecha_envioDate().compareTo(o2.getFecha_envioDate());
             }
         });
+    }
+
+    public static void insertMensaje(Mensaje mensaje) {
+        collection1.insertOne(mensaje);
     }
 }

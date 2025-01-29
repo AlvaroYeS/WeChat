@@ -4,19 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.robot.Robot;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -25,6 +20,8 @@ import java.util.ResourceBundle;
 public class ChatController implements Initializable {
 
 
+    public TextField mensaje;
+    public ScrollPane scrollPane;
     @FXML
     private GridPane chat;
 
@@ -32,6 +29,7 @@ public class ChatController implements Initializable {
     public static String id2;
     public static String idUser;
     public ArrayList<Mensaje> listaMensajes;
+    private boolean id_1_2 = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,10 +39,14 @@ public class ChatController implements Initializable {
         chat.setHgap(10);
         chat.setVgap(10);
         chat.setPadding(new Insets(10, 10, 10, 10));
+
+        Conexion.ordenarMensajes();
+
         for (int i = 0; i < Conexion.ListaMensajes.size(); i++) {
 
             if (!id.equals(Conexion.ListaMensajes.get(i).getId_chat())){
                 if (!id2.equals(Conexion.ListaMensajes.get(i).getId_chat())) {
+                    id_1_2 = false;
                     break;
                 }
             }
@@ -69,5 +71,47 @@ public class ChatController implements Initializable {
 
             chat.addRow(i, bubble);
         }
+
+        scrollPane.setHvalue(chat.getRowCount());
+    }
+
+    @FXML
+    private void openEmojiKeyboard() {
+        try {
+            Robot robot = new Robot();
+            // Simula pulsar la tecla Windows
+            robot.keyPress(KeyCode.WINDOWS);
+            // Simula pulsar la tecla "."
+            robot.keyPress(KeyCode.PERIOD);
+
+            // Suelta las teclas
+            robot.keyRelease(KeyCode.WINDOWS);
+            robot.keyRelease(KeyCode.PERIOD);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onSendClick() {
+        Mensaje m = null;
+        StringBuilder builder = null;
+        if (id_1_2) {
+            m = new Mensaje(id2, idUser, mensaje.getText(), LocalDateTime.now().toString(), Estado.no_entregado);
+            builder = new StringBuilder(id2);
+        } else {
+            m = new Mensaje(id, idUser, mensaje.getText(), LocalDateTime.now().toString(), Estado.no_entregado);
+            builder = new StringBuilder(id);
+        }
+        m.setId_receptor(String.valueOf(builder.delete(0,10)));
+        m.convertDate();
+        Bubble bubble = new Bubble(m.getMensaje(), (m.getFecha_envioDate().format(DateTimeFormatter.ofPattern("hh:mm")) + " ✓"));
+        GridPane.setHalignment(bubble, HPos.RIGHT);
+        chat.addRow(chat.getRowCount(), bubble);
+
+        if (m!=null) {
+            Conexion.insertMensaje(m);
+        }
+
     }
 }

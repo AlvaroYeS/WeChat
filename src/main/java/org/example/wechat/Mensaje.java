@@ -1,14 +1,20 @@
 package org.example.wechat;
 
+import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.codecs.pojo.annotations.BsonProperty;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Mensaje {
     private String id_chat;
     private String id_emisor;
+    @BsonIgnore
     private String id_receptor;
     private String mensaje;
+    @BsonIgnore
     private String fecha_envio;
+    @BsonProperty("fecha_envio")
     private LocalDateTime fecha_envioDate;
     private Estado estado;
 
@@ -23,7 +29,6 @@ public class Mensaje {
     public Mensaje() {}
 
     public void initialize() {
-        convertDate();
         getReceptor();
     }
 
@@ -81,6 +86,14 @@ public class Mensaje {
         this.fecha_envio = fecha_envio;
     }
 
+    public String getId_receptor() {
+        return id_receptor;
+    }
+
+    public void setId_receptor(String id_receptor) {
+        this.id_receptor = id_receptor;
+    }
+
     @Override
     public String toString() {
         return "Mensaje{" +
@@ -89,13 +102,13 @@ public class Mensaje {
                 ", id_receptor='" + id_receptor + '\'' +
                 ", mensaje='" + mensaje + '\'' +
                 ", estado=" + estado +
-                ", fecha_envio='" + getFecha_envio() + '\'' +
+                ", fecha_envio='" + getFecha_envioDate() + '\'' +
                 '}';
     }
 
     public void convertDate() {
         StringBuilder builder = new StringBuilder(fecha_envio);
-        builder.deleteCharAt(19);
+        builder.deleteCharAt(builder.length()-1);
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         this.fecha_envioDate = LocalDateTime.parse(builder, formatter);
     }
