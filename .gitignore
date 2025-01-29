@@ -12,7 +12,6 @@ target/
 *.iws
 *.iml
 *.ipr
-*.src/main/java/org/example/wechat/Conexionurl.java
 
 ### Eclipse ###
 .apt_generated
@@ -38,3 +37,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/src/main/java/org/example/wechat/Conexionurl.java
