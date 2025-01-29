@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class ContactosController implements Initializable {
 
+    public Button volver;
     @FXML
     private GridPane contactos;
     public static Usuario usuario;
@@ -32,26 +33,49 @@ public class ContactosController implements Initializable {
             if(!Conexion.ListaUsuarios.get(i).equals(usuario)) {
                 Button boton = new Button(Conexion.ListaUsuarios.get(i).getNombre());
                 int finalI = i;
-                boton.setOnAction(e -> abrirChat(Conexion.ListaUsuarios.get(finalI).getId()));
+                boton.setOnAction(e -> abrirChat(Conexion.ListaUsuarios.get(finalI).getId(), Conexion.ListaUsuarios.get(finalI).getNombre()));
                 contactos.add(boton, 0, i);
             }
         }
     }
 
- public void abrirChat(String id){
-     Parent parent = null;
-     try {
-         ChatController.id = usuario.getId() + "-" + id;
-         ChatController.idUser = usuario.getId();
-         ChatController.id2 = id + "-" + usuario.getId();
-         parent = FXMLLoader.load(getClass().getResource("chat.fxml"));
-         Scene scene = new Scene(parent);
-         Stage stage = new Stage();
-         stage.setTitle("Welcome");
-         stage.setScene(scene);
-         stage.show();
-     } catch (IOException e) {
-         throw new RuntimeException(e);
-     }
+     public void abrirChat(String id, String nombre){
+            Conexion.getMensajes();
+            Parent parent = null;
+             try {
+                 ChatController.id = usuario.getId() + "-" + id;
+                 ChatController.idUser = usuario.getId();
+                 ChatController.id2 = id + "-" + usuario.getId();
+                 ChatController.nombreUser = nombre;
+                 parent = FXMLLoader.load(getClass().getResource("chat.fxml"));
+                 Scene scene = new Scene(parent);
+                 Stage stage = new Stage();
+                 stage.setTitle("Welcome");
+                 stage.setScene(scene);
+                 stage.show();
+                 cerrar();
+             } catch (IOException e) {
+                 throw new RuntimeException(e);
+             }
+    }
+
+    public void volver() {
+        Parent parent = null;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+            stage.setTitle("Welcome");
+            stage.setScene(scene);
+            stage.show();
+            cerrar();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void cerrar() {
+        Stage stage = (Stage) volver.getScene().getWindow();
+        stage.close();
     }
 }

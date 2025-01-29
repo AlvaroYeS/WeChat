@@ -1,23 +1,26 @@
 package org.example.wechat;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.robot.Robot;
-
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ChatController implements Initializable {
@@ -25,17 +28,21 @@ public class ChatController implements Initializable {
 
     public TextField mensaje;
     public ScrollPane scrollPane;
+    public Text nombre;
     @FXML
     private GridPane chat;
 
     public static String id;
     public static String id2;
     public static String idUser;
+    public static String nombreUser;
     public ArrayList<Mensaje> listaMensajes;
     private boolean id_1_2 = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        nombre.setText(nombreUser);
 
         chat.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
@@ -55,7 +62,7 @@ public class ChatController implements Initializable {
                     break;
                 }
             }
-            String estado = "";
+            String estado;
 
             if (listaMensajes.get(i).getEstado().equals(Estado.no_entregado)) {
                 estado = "✓";
@@ -99,8 +106,8 @@ public class ChatController implements Initializable {
 
     @FXML
     public void onSendClick() {
-        Mensaje m = null;
-        StringBuilder builder = null;
+        Mensaje m;
+        StringBuilder builder;
         if (id_1_2) {
             m = new Mensaje(id2, idUser, mensaje.getText(), LocalDateTime.now().toString(), Estado.no_entregado);
             builder = new StringBuilder(id2);
@@ -116,7 +123,28 @@ public class ChatController implements Initializable {
 
         if (m!=null) {
             Conexion.insertMensaje(m);
+            listaMensajes.add(m);
         }
+    }
 
+    @FXML
+    private void volver() {
+        Parent parent;
+        try {
+            parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("contactos.fxml")));
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+            stage.setTitle("Welcome");
+            stage.setScene(scene);
+            stage.show();
+            cerrar();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void cerrar() {
+        Stage stage = (Stage) chat.getScene().getWindow();
+        stage.close();
     }
 }

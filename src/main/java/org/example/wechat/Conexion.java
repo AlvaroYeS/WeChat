@@ -37,35 +37,38 @@ public class Conexion {
     private static MongoClient client = MongoClients.create(settings);
 
     public static void connect() {
-            CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
-            CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
+            getUsuarios();
+            getMensajes();
+    }
 
-            database = client.getDatabase("WeChat").withCodecRegistry(pojoCodecRegistry);
-            collection = database.getCollection("Usuarios", Usuario.class);
-            collection1 = database.getCollection("Mensajes", Mensaje.class);
+    public static void getUsuarios() {
+        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
+        CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
-            MongoCursor<Usuario> cursor = collection.find().iterator();
-            ListaUsuarios.clear();
-            while (cursor.hasNext()) {
-                ListaUsuarios.add(cursor.next());
-            }
+        database = client.getDatabase("WeChat").withCodecRegistry(pojoCodecRegistry);
+        collection = database.getCollection("Usuarios", Usuario.class);
+        MongoCursor<Usuario> cursor = collection.find().iterator();
+        ListaUsuarios.clear();
+        while (cursor.hasNext()) {
+            ListaUsuarios.add(cursor.next());
+        }
 
-            for (Usuario u : ListaUsuarios) {
-                u.convertDate();
-            }
+        for (Usuario u : ListaUsuarios) {
+            u.convertDate();
+        }
+    }
 
+    public static void getMensajes() {
+        collection1 = database.getCollection("Mensajes", Mensaje.class);
+        MongoCursor<Mensaje> cursorMensajes = collection1.find().iterator();
+        ListaMensajes.clear();
+        while (cursorMensajes.hasNext()) {
+            ListaMensajes.add(cursorMensajes.next());
+        }
 
-            MongoCursor<Mensaje> cursorMensajes = collection1.find().iterator();
-            ListaMensajes.clear();
-            while (cursorMensajes.hasNext()) {
-                ListaMensajes.add(cursorMensajes.next());
-            }
-
-            for (Mensaje m : ListaMensajes) {
-                m.getReceptor();
-            }
-
-            System.out.println(ListaUsuarios);
+        for (Mensaje m : ListaMensajes) {
+            m.getReceptor();
+        }
     }
 
     public static void ordenarMensajes() {

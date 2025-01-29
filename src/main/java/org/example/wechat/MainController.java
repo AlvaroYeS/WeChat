@@ -56,6 +56,7 @@ public class MainController {
             stage.setTitle("Welcome");
             stage.setScene(scene);
             stage.show();
+            cerrar();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -69,6 +70,11 @@ public class MainController {
         Scene xd = new Scene(pane);
         stage.setScene(xd);
         stage.show();
+    }
+
+    private void cerrar() {
+        Stage stage = (Stage) usuario.getScene().getWindow();
+        stage.close();
     }
 }
 

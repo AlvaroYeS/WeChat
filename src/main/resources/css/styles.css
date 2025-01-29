@@ -1,5 +1,5 @@
 /* Estilo para todos los botones */
-.button {
+GridPane .button {
     -fx-background-color: white;  /* Fondo blanco */
     -fx-text-fill: green;         /* Texto verde */
     -fx-font-size: 14px;          /* Tamaño de fuente */
@@ -14,7 +14,7 @@
 }
 
 /* Estilo para cuando el botón está en hover */
-.button:hover {
+GridPane .button:hover {
     -fx-border-color: transparent transparent black transparent;
     -fx-border-width: 0 0 5px 0;
     -fx-background-color: #45a049;
@@ -22,6 +22,6 @@
 }
 
 /* Estilo para cuando el botón está presionado */
-.button:pressed {
+GridPane .button:pressed {
     -fx-background-color: #388e3c;
 }
