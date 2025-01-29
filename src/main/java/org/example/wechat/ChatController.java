@@ -14,8 +14,11 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ChatController implements Initializable {
 
@@ -41,31 +44,33 @@ public class ChatController implements Initializable {
         chat.setPadding(new Insets(10, 10, 10, 10));
 
         Conexion.ordenarMensajes();
+        listaMensajes = (ArrayList<Mensaje>) Conexion.ListaMensajes.stream().filter(mensaje -> mensaje.getId_chat().contains(id) || mensaje.getId_chat().contains(id2)).collect(Collectors.toList());
+        System.out.println(listaMensajes);
 
-        for (int i = 0; i < Conexion.ListaMensajes.size(); i++) {
+        for (int i = 0; i < listaMensajes.size(); i++) {
 
-            if (!id.equals(Conexion.ListaMensajes.get(i).getId_chat())){
-                if (!id2.equals(Conexion.ListaMensajes.get(i).getId_chat())) {
+            if (!id.equals(listaMensajes.get(i).getId_chat())){
+                if (!id2.equals(listaMensajes.get(i).getId_chat())) {
                     id_1_2 = false;
                     break;
                 }
             }
             String estado = "";
 
-            if (Conexion.ListaMensajes.get(i).getEstado().equals(Estado.no_entregado)) {
+            if (listaMensajes.get(i).getEstado().equals(Estado.no_entregado)) {
                 estado = "✓";
-            } else if (Conexion.ListaMensajes.get(i).getEstado().equals(Estado.entregado)) {
+            } else if (listaMensajes.get(i).getEstado().equals(Estado.entregado)) {
                 estado = "✓✓";
             } else {
                 estado = "✅✅";
             }
 
-            Bubble bubble = new Bubble(Conexion.ListaMensajes.get(i).getMensaje(), (Conexion.ListaMensajes.get(i).getFecha_envioDate().format(DateTimeFormatter.ofPattern("hh:mm")) + " " + estado));
+            Bubble bubble = new Bubble(listaMensajes.get(i).getMensaje(), (listaMensajes.get(i).getFecha_envioDate().format(DateTimeFormatter.ofPattern("hh:mm")) + " " + estado));
 
-            if (Objects.equals(Conexion.ListaMensajes.get(i).getId_emisor(), idUser)) {
+            if (Objects.equals(listaMensajes.get(i).getId_emisor(), idUser)) {
                 GridPane.setHalignment(bubble, HPos.RIGHT);
             } else {
-                bubble = new Bubble(Conexion.ListaMensajes.get(i).getMensaje(),Conexion.ListaMensajes.get(i).getFecha_envioDate().format(DateTimeFormatter.ofPattern("hh:mm")));
+                bubble = new Bubble(listaMensajes.get(i).getMensaje(),listaMensajes.get(i).getFecha_envioDate().format(DateTimeFormatter.ofPattern("hh:mm")));
                 GridPane.setHalignment(bubble, HPos.LEFT);
             }
 

@@ -39,7 +39,6 @@ public class ContactosController implements Initializable {
     }
 
  public void abrirChat(String id){
-     System.out.println(id);
      Parent parent = null;
      try {
          ChatController.id = usuario.getId() + "-" + id;
